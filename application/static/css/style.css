@@ -1,0 +1,21 @@
+.center {
+	margin:0 auto;
+	max-width: 500px;
+}
+
+.thumbnailPic {
+	height: 10em;
+	width: 10em;
+}
+
+.footerStyle {
+	bottom: 0;
+}
+
+.sidebarContent {
+	margin: auto;
+}
+
+.footerText {
+	float: right;
+}
