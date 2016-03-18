@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
     <title>Quiz</title>
-    <header><h1>GifQuiz</h1></header>
+    <header><h1 id="instr"></h1></header>
+    <button id="butt" type="button" class="startButton btn btn-primary btn-lg" onclick="start()">Start</button>
     <div class="center">
-
-    <img src="{{img[0]}}" style="width: 250px"/>
-    <img src="{{img[1]}}" style="width: 250px"/>
-    <img src="{{img[2]}}" style="width: 250px"/>
+    <img id="img_0" class="gif" src="" onclick="selectGif(0)"/>
+    <img id="img_1" class="gif" src="" onclick="selectGif(1)"/>
+    <img id="img_2" class="gif" src="" onclick="selectGif(2)"/>
     </div>
 {% endblock %}
