@@ -14,6 +14,6 @@ app = Flask(__name__, template_folder='views')
 #mail.init_app(app)
 
 
-import application.controllers.main
+import myapp.controllers.main
 
 app.register_blueprint(controllers.main)
