@@ -1,18 +1,19 @@
 var imgs = [
-  '/static/pictures/football_s1.jpg',
-  '/static/pictures/sports_s1.jpg',
-  '/static/pictures/sports_s4.jpg',
+  '/static/pictures/run.gif',
+  '/static/pictures/kick.gif',
+  '/static/pictures/throw.gif'
 ];
 
 var audio = [
-  '',
-  '',
-  ''
+  '/static/audio/running.m4a',
+  '/static/audio/kicking.m4a',
+  '/static/audio/throwing.m4a'
 ];
 
 var round = 0;
 var correct = 0;
 var interval;
+var aud;
 
 $(function () {
   round = 0;
@@ -21,6 +22,7 @@ $(function () {
 
 function start(){
   $("#butt").hide();
+  $(".navbar-brand").hide();
   runTrial();
 }
 
@@ -39,17 +41,19 @@ function runTrial(){
 
   //play audio of correct
   if (audio[correct] != ''){
-    var aud = new Audio(audio[correct]);
+    aud = new Audio(audio[correct]);
     aud.play();
 
     //repeat every 4 seconds
     interval = setInterval(function(){
-      audio.play();
+      aud.play();
     }, 5000);
   }
 }
 
 function selectGif(guess){
+  aud.pause();
+  clearInterval(interval);
   if (order[guess] == correct){
     correctSelection();
   }
@@ -80,9 +84,11 @@ function incorrectSelection(){
 }
 
 function finish(){
+  round = 0;
   $(".gif").hide();
   setTimeout(function(){
     $("#butt").show();
+    $(".navbar-brand").show();
   }, 1000);
 }
 
