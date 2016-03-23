@@ -10,7 +10,6 @@ var audio = [
   '/static/audio/throwing.m4a'
 ];
 
-var counts = [0, 0, 0];
 
 var round = 0;
 var correct = 0;
@@ -19,6 +18,7 @@ var aud;
 var order = [0, 0, 0];
 var oldOrder = [0, 0, 0];
 var prevCorrect = [3, 3];
+var counts = [0, 0, 0];
 
 var successColor = "#90C3D4";
 var failColor = "#000";
@@ -31,6 +31,10 @@ $(function () {
 function start(){
   $("#butt").hide();
   $(".navbar-brand").hide();
+  order = [0, 0, 0];
+  oldOrder = [0, 0, 0];
+  prevCorrect = [3, 3];
+  counts = [0, 0, 0];
   runTrial();
 }
 
@@ -41,10 +45,12 @@ function runTrial(){
   order = shuffle(order);
   while (isEqual(order, oldOrder)){
     order = shuffle(order);
+    console.log("1");
   }
   correct = order[getRandomInt(0, order.length)];
   while (counts[correct] > 2 || (prevCorrect[0] == correct && prevCorrect[1] == correct)){
     correct = order[getRandomInt(0, order.length)];
+    console.log("2");
   }
   counts[correct]++;
   prevCorrect[1] = prevCorrect[0];
@@ -109,6 +115,11 @@ function incorrectSelection(){
 
 function finish(){
   round = 0;
+  order = [0, 0, 0];
+  oldOrder = [0, 0, 0];
+  prevCorrect = [3, 3];
+  counts = [0, 0, 0];
+  correct = 0;
   $(".gif").hide();
   setTimeout(function(){
     $("#butt").show();
