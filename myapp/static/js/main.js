@@ -10,10 +10,18 @@ var audio = [
   '/static/audio/throwing.m4a'
 ];
 
+var counts = [0, 0, 0];
+
 var round = 0;
 var correct = 0;
 var interval;
 var aud;
+var order = [0, 0, 0];
+var oldOrder = [0, 0, 0];
+var prevCorrect = [3, 3];
+
+var successColor = "#90C3D4";
+var failColor = "#000";
 
 $(function () {
   round = 0;
@@ -28,9 +36,19 @@ function start(){
 
 function runTrial(){
   round++;
+  oldOrder = order;
   order = [0, 1, 2];
   order = shuffle(order);
+  while (isEqual(order, oldOrder)){
+    order = shuffle(order);
+  }
   correct = order[getRandomInt(0, order.length)];
+  while (counts[correct] > 2 || (prevCorrect[0] == correct && prevCorrect[1] == correct)){
+    correct = order[getRandomInt(0, order.length)];
+  }
+  counts[correct]++;
+  prevCorrect[1] = prevCorrect[0];
+  prevCorrect[0] = correct;
 
   //assign gif urls
   $("#img_0").attr("src", imgs[order[0]]);
@@ -63,21 +81,27 @@ function selectGif(guess){
 }
 
 function correctSelection() {
-  if (round >= 9){
-    finish();
-  }
-  else{
-    runTrial();
-  }
-}
-
-function incorrectSelection(){
   $(".gif").hide();
   setTimeout(function(){
     if (round >= 9){
       finish();
     }
     else{
+      runTrial();
+    }
+  }, 1000);
+}
+
+function incorrectSelection(){
+  $(".gif").hide();
+  $("body").css("background-color", failColor);
+  setTimeout(function(){
+    if (round >= 9){
+      $("body").css("background-color", successColor);
+      finish();
+    }
+    else{
+      $("body").css("background-color", successColor);
       runTrial();
     }
   }, 2000);
@@ -105,4 +129,16 @@ function shuffle(list){
 
 function getRandomInt(min, max){
   return Math.floor(Math.random() * (max - min)) + min;
+}
+
+function isEqual(a, b){
+  if (a.length != b.length){
+    return false;
+  }
+  for (var i = 0; i < a.length; i++){
+    if (a[i] != b[i]){
+      return false;
+    }
+  }
+  return true;
 }

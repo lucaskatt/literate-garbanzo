@@ -4,7 +4,7 @@ from myapp import app
 main = Blueprint('main', __name__, template_folder='views')
 
 
-@main.route('/gifquiz/', methods = ["GET"])
+@main.route('/hannahgoodell/', methods = ["GET"])
 def main_route():
 
     data = {}
