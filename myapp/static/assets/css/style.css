@@ -105,7 +105,7 @@ section {
     HEADER STYLES
 ==================================================*/
 #home {
-    padding:20px 40px 130px 40px;
+    padding:20px 0px 130px 0px;
 }
 .head-main {
     font-size:120px !important;
@@ -191,8 +191,8 @@ margin-bottom:20px;
 }
 
 .gif {
-  width: 350px;
-  padding: 30px 20px 20px 30px;
+  width: 33%;
+  padding: 10px 20px 10px 30px;
 }
 
 .startButton {

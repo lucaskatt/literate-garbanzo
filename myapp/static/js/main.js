@@ -75,6 +75,34 @@ function runTrial(){
   }
 }
 
+function rerunTrial(){
+  oldOrder = order;
+  order = [0, 1, 2];
+  order = shuffle(order);
+  while (isEqual(order, oldOrder)){
+    order = shuffle(order);
+    console.log("1");
+  }
+
+  //assign gif urls
+  $("#img_0").attr("src", imgs[order[0]]);
+  $("#img_1").attr("src", imgs[order[1]]);
+  $("#img_2").attr("src", imgs[order[2]]);
+
+  $(".gif").show();
+
+  //play audio of correct
+  if (audio[correct] != ''){
+    aud = new Audio(audio[correct]);
+    aud.play();
+
+    //repeat every 4 seconds
+    interval = setInterval(function(){
+      aud.play();
+    }, 5000);
+  }
+}
+
 function selectGif(guess){
   aud.pause();
   clearInterval(interval);
@@ -102,14 +130,8 @@ function incorrectSelection(){
   $(".gif").hide();
   $("body").css("background-color", failColor);
   setTimeout(function(){
-    if (round >= 9){
-      $("body").css("background-color", successColor);
-      finish();
-    }
-    else{
-      $("body").css("background-color", successColor);
-      runTrial();
-    }
+    $("body").css("background-color", successColor);
+    rerunTrial();
   }, 2000);
 }
 
